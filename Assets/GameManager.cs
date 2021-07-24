@@ -176,13 +176,16 @@ public class GameManager : MonoBehaviour
                 if(!wasWrited){
                     saves.Add(newData);
                 }
-                if(saves.Count>=10){
+                if(saves.Count>10){
                     saves.RemoveAt(10);
                 }
                 DeleteChilds(highscoreContainrer.transform);
                 foreach(PlayerData data in saves){  
                     TextMeshProUGUI score = Instantiate(resultPrefab, highscoreContainrer.transform);
                     score.text = $"{data.playerName} : {data.score}";
+                    if(data.score == result && data.playerName==player){
+                        score.color = Color.red;
+                    }
                 }
             }
             formatter.Serialize(fs,saves);
